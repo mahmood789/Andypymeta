@@ -161,10 +161,19 @@ from . import stats
 from . import models
 from . import plots
 from . import diagnostics
+from . import living
+from . import suite
 
 # Import specific functions for convenience
-from .plots.forest import plot_forest
-from .plots.funnel import plot_funnel
+try:
+    from .plots.forest import plot_forest
+    from .plots.funnel import plot_funnel
+    from .plots.funnel_contour import plot_funnel_contour
+except ImportError:
+    # Handle missing matplotlib gracefully
+    plot_forest = None
+    plot_funnel = None 
+    plot_funnel_contour = None
 
 __all__ = [
     "MetaPoint",
@@ -174,9 +183,12 @@ __all__ = [
     "analyze_csv",
     "plot_forest",
     "plot_funnel",
+    "plot_funnel_contour",
     "config",
     "stats", 
     "models",
     "plots",
     "diagnostics",
+    "living",
+    "suite",
 ]

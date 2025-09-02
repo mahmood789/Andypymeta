@@ -7,6 +7,7 @@ from .influence import (
     influence_measures,
     InfluenceResult,
     LeaveOneOutResult,
+    identify_outliers,
 )
 
 __all__ = [
@@ -14,4 +15,5 @@ __all__ = [
     "influence_measures", 
     "InfluenceResult",
     "LeaveOneOutResult",
+    "identify_outliers",
 ]
