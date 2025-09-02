@@ -1,0 +1,6 @@
+study,treatment_events,treatment_total,control_events,control_total,year
+Study_1,10,100,5,100,2018
+Study_2,15,120,8,110,2019
+Study_3,8,80,12,85,2020
+Study_4,12,110,6,105,2021
+Study_5,6,90,9,95,2022
