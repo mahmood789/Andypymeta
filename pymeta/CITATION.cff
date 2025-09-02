@@ -1,0 +1,12 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it as below."
+type: software
+title: "PyMeta: A comprehensive Python package for meta-analysis"
+authors:
+  - given-names: "Placeholder"
+    family-names: "Author"
+    email: "author@example.com"
+repository-code: "https://github.com/mahmood789/Andypymeta"
+license: "Apache-2.0"
+version: "0.1.0"
+date-released: "2024-01-01"
