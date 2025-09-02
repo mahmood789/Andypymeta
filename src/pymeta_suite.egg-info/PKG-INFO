@@ -1,0 +1,54 @@
+Metadata-Version: 2.4
+Name: pymeta-suite
+Version: 0.0.1
+Summary: A comprehensive meta-analysis toolkit for Python
+Author: pymeta contributors
+Maintainer: pymeta contributors
+License: MIT
+Project-URL: Homepage, https://github.com/mahmood789/Andypymeta
+Project-URL: Repository, https://github.com/mahmood789/Andypymeta
+Project-URL: Issues, https://github.com/mahmood789/Andypymeta/issues
+Classifier: Development Status :: 3 - Alpha
+Classifier: Intended Audience :: Science/Research
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Programming Language :: Python :: 3.12
+Classifier: Topic :: Scientific/Engineering :: Information Analysis
+Classifier: Topic :: Scientific/Engineering :: Medical Science Apps.
+Requires-Python: >=3.10
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: numpy>=1.21.0
+Requires-Dist: pandas>=1.3.0
+Requires-Dist: scipy>=1.7.0
+Requires-Dist: statsmodels>=0.13.0
+Requires-Dist: matplotlib>=3.5.0
+Requires-Dist: plotly>=5.0.0
+Provides-Extra: rve
+Requires-Dist: scikit-learn>=1.0.0; extra == "rve"
+Provides-Extra: bayes
+Requires-Dist: pymc>=5.0.0; extra == "bayes"
+Requires-Dist: arviz>=0.12.0; extra == "bayes"
+Provides-Extra: torch
+Requires-Dist: torch>=1.10.0; extra == "torch"
+Requires-Dist: torchvision>=0.11.0; extra == "torch"
+Provides-Extra: xgb
+Requires-Dist: xgboost>=1.5.0; extra == "xgb"
+Requires-Dist: lightgbm>=3.3.0; extra == "xgb"
+Provides-Extra: viz
+Requires-Dist: seaborn>=0.11.0; extra == "viz"
+Requires-Dist: bokeh>=2.4.0; extra == "viz"
+Provides-Extra: dev
+Requires-Dist: pytest>=7.0.0; extra == "dev"
+Requires-Dist: pytest-cov>=4.0.0; extra == "dev"
+Requires-Dist: pytest-xdist>=3.0.0; extra == "dev"
+Requires-Dist: black>=22.0.0; extra == "dev"
+Requires-Dist: ruff>=0.1.0; extra == "dev"
+Requires-Dist: mypy>=1.0.0; extra == "dev"
+Requires-Dist: pre-commit>=2.20.0; extra == "dev"
+Requires-Dist: tox>=4.0.0; extra == "dev"
+Provides-Extra: all
+Requires-Dist: pymeta-suite[bayes,dev,rve,torch,viz,xgb]; extra == "all"
+Dynamic: license-file

@@ -36,24 +36,51 @@ def egger_test(effect_sizes, standard_errors):
     W = np.diag(weights)
     
     # Weighted least squares
-    XtWX_inv = np.linalg.inv(X.T @ W @ X)
-    beta = XtWX_inv @ X.T @ W @ effect_sizes
+    try:
+        XtWX_inv = np.linalg.inv(X.T @ W @ X)
+        beta = XtWX_inv @ X.T @ W @ effect_sizes
+    except np.linalg.LinAlgError:
+        # Handle singular matrix (e.g., identical standard errors)
+        return {
+            'intercept': np.nan,
+            'se_intercept': np.nan,
+            't_intercept': np.nan,
+            'p_intercept': np.nan,
+            'slope': np.nan,
+            'se_slope': np.nan,
+            't_slope': np.nan,
+            'p_slope': np.nan,
+            'df': len(effect_sizes) - 2,
+            'bias_detected': False
+        }
     
     intercept, slope = beta
     
     # Standard errors
     residuals = effect_sizes - X @ beta
-    mse = np.sum(weights * residuals**2) / (len(effect_sizes) - 2)
+    df = len(effect_sizes) - 2
+    if df > 0:
+        mse = np.sum(weights * residuals**2) / df
+    else:
+        mse = np.inf
     se_beta = np.sqrt(np.diag(XtWX_inv) * mse)
     se_intercept, se_slope = se_beta
     
     # Test statistics for intercept (bias test)
-    t_intercept = intercept / se_intercept
-    p_intercept = 2 * (1 - stats.t.cdf(abs(t_intercept), len(effect_sizes) - 2))
+    if np.isfinite(se_intercept) and se_intercept > 0:
+        t_intercept = intercept / se_intercept
+        p_intercept = 2 * (1 - stats.t.cdf(abs(t_intercept), df)) if df > 0 else np.nan
+    else:
+        t_intercept = np.nan
+        p_intercept = np.nan
     
     # Test statistics for slope
-    t_slope = slope / se_slope
-    p_slope = 2 * (1 - stats.t.cdf(abs(t_slope), len(effect_sizes) - 2))
+    if np.isfinite(se_slope) and se_slope > 0:
+        t_slope = slope / se_slope
+        p_slope = 2 * (1 - stats.t.cdf(abs(t_slope), df)) if df > 0 else np.nan
+    else:
+        t_slope = np.nan
+        p_slope = np.nan
     
     return {
         'intercept': intercept,
@@ -64,8 +91,8 @@ def egger_test(effect_sizes, standard_errors):
         'se_slope': se_slope,
         't_slope': t_slope,
         'p_slope': p_slope,
-        'df': len(effect_sizes) - 2,
-        'bias_detected': p_intercept < 0.05
+        'df': df,
+        'bias_detected': bool(p_intercept < 0.05) if np.isfinite(p_intercept) else False
     }
 
 
@@ -95,7 +122,7 @@ def begg_test(effect_sizes, variances):
     return {
         'tau': tau,
         'p_value': p_value,
-        'bias_detected': p_value < 0.05,
+        'bias_detected': bool(p_value < 0.05),
         'test': 'Begg rank correlation'
     }
 
