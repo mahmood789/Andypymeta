@@ -31,6 +31,11 @@ from . import tsa
 # Main suite
 from .suite import PyMeta
 
+# Import key model classes for direct access
+from .models.fixed_effects import FixedEffects
+from .models.random_effects import RandomEffects
+from .models.glmm_binomial import GLMMBinomial
+
 # High-level API exports
 __all__ = [
     # Version and metadata
@@ -52,6 +57,9 @@ __all__ = [
     
     # Main suite
     'PyMeta',
+    
+    # Model classes
+    'FixedEffects', 'RandomEffects', 'GLMMBinomial',
     
     # Submodules
     'estimators', 'models', 'effects', 'bias', 'plots', 'tsa'

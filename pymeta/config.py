@@ -26,7 +26,6 @@ class PlotStyle:
             'font.family': self.font_family,
             'font.size': self.font_size,
             'axes.grid': self.grid,
-            'axes.grid.alpha': self.grid_alpha,
         })
 
 
